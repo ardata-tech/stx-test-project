@@ -17,6 +17,7 @@ struct TestRecord {
     id: i32,
     name: String,
     value: f64,
+    description: String,
 }
 
 type Result<T> = std::result::Result<T, SxTError>;
@@ -96,15 +97,15 @@ async fn example_table_operations() -> Result<()> {
     
     // Create a new table
     let table = SxTTable::new(
-        "test_schema_alvin",
-        "test_table_alvin",
+        "alvin_test_schema",
+        "alvin_test_table",
         None, // Will generate a new keypair
         authenticated_user.clone(),
         TableAccessType::PublicRead,
     );
     
     // Define table schema
-    let schema = "id INT PRIMARY KEY, name VARCHAR(100), value DECIMAL(10,2)";
+    let schema = "id INT PRIMARY KEY, name VARCHAR(100), value DECIMAL(10,2), description VARCHAR";
     
     // Create the table
     match table.create(schema.to_string()).await {
